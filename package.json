@@ -1,0 +1,55 @@
+{
+  "name": "xiu-cli",
+  "version": "1.0.0",
+  "description": "前端 cli 工具",
+  "main": "index.js",
+  "bin": {
+    "xiu": "bin/cli.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/King5-12/xiu-cli.git"
+  },
+  "author": "kim",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "chalk": "^4.1.0",
+    "execa": "^5.1.1",
+    "fs-extra": "^10.0.0",
+    "glob": "^7.1.6",
+    "inquirer": "^7.3.2",
+    "ora": "^5.4.1",
+    "yargs-parser": "^18.1.3",
+    "yeoman-environment": "^2.10.3",
+    "yeoman-generator": "^4.11.0"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^8.3.5",
+    "@commitlint/config-conventional": "^8.3.4",
+    "eslint": "^6.8.0",
+    "lint-staged": "^10.2.2",
+    "prettier": "^2.0.5",
+    "yorkie": "^2.0.0"
+  },
+  "gitHooks": {
+    "pre-commit": "lint-staged",
+    "commit-msg": "commitlint -e $GIT_PARAMS"
+  },
+  "lint-staged": {
+    "*.{css,less,json,md}": [
+      "prettier --write"
+    ],
+    "*.js": [
+      "prettier --write",
+      "eslint --fix"
+    ]
+  },
+  "bugs": {
+    "url": "https://github.com/King5-12/xiu-cli/issues"
+  },
+  "homepage": "https://github.com/King5-12/xiu-cli#readme"
+}
