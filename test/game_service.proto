@@ -1,0 +1,48 @@
+syntax="proto3";
+
+package jj.ds;
+
+option go_package = "./;pb";
+
+import "game_pr.proto";
+import "google/api/annotations.proto";
+import "google/protobuf/empty.proto";
+
+message GetGameListRouterRsp {
+    repeated GetGameListRsp list = 1;
+}
+
+message GamePlatformSwitchRouterRsp {
+    repeated GamePlatformSwitchRsp list = 1;
+}
+
+service Game {
+    // 获取游戏列表
+    rpc SelectGameList(GetGameListReq) returns (GetGameListRouterRsp) {
+        option (google.api.http) = {
+            get: "ds/api/SelectGameList"
+        };
+    }
+
+    // 修改游戏状态(上线/下线)
+    rpc ChangeGameStatus(ChangeGameStatusReq) returns (google.protobuf.Empty) {
+        option (google.api.http) = {
+            post: "ds/api/ChangeGameStatus"
+        };
+    }
+
+    //平台相关的比赛开关
+    rpc GamePlatformSwitch(GamePlatformSwitchReq) returns (google.protobuf.Empty) {
+        option (google.api.http) = {
+            post: "ds/api/GamePlatformSwitch"
+        };
+    }
+
+    //获取平台比赛开关
+    rpc SelectGamePlatformSwitch(google.protobuf.Empty) returns (GamePlatformSwitchRouterRsp) {
+        option (google.api.http) = {
+            post: "ds/api/SelectGamePlatformSwitch"
+        };
+    }
+
+}

@@ -1,0 +1,94 @@
+syntax="proto3";
+
+package jj.ds;
+
+option go_package = "./;pb";
+
+//获取游戏列表
+message PrPsSelectGameList {
+	enum Result
+    {
+        OK = 0;                                         // 成功
+        FAILED = 1;                                     // 失败
+    }
+	GetGameListReq req = 1;
+	GetGameListRsp rsp = 2;
+	Result result = 3;                                  // 结果
+}
+message GetGameListReq {
+	string show_type = 1;		//展示类型 0自主办赛 1挂牌赛事 2导流赛事, 多个类型逗号隔开
+}
+message GetGameListRsp {
+	int32 id = 1;                    //id
+	string name = 2;                 //游戏名称
+	string config = 3;               //游戏动态库
+	string version = 4;              //版本号
+	int32 game_id = 5;               //游戏id
+	int32 status = 6;                //创建比赛，0下线,1上线
+	int32 paid_match_switch = 7;     //付费赛开关，0下线,1上线
+	int32 personal_match_switch = 8; //联机比赛开关，0下线,1上线
+	int32 match_code_wx_app = 9;     //小程序赛事二维码开关。0关闭,1开启
+	int32 match_code_app = 10;       //app赛事二维码。0关闭,1开启
+}
+
+//上线或下线游戏
+message PrPsChangeGameStatus {
+	enum Result
+    {
+        OK = 0;                                         // 成功
+        FAILED = 1;                                     // 失败
+    }
+	ChangeGameStatusReq req = 1;
+	Result result = 2;                                  // 结果
+}
+message ChangeGameStatusReq {
+	int32 game_id = 1;                //游戏id
+	int32 status = 2;                 //创建比赛,0下线,1上线,-1表示不修改
+	int32 paid_match_switch = 3;      //付费赛开关,0下线,1上线,-1表示不修改
+	int32 personal_match_switch = 4;  //联机比赛开关,0下线,1上线,-1表示不修改
+	int32 match_code_wx_app = 5;      //小程序赛事二维码开关。0关闭,1开启,-1表示不修改
+	int32 match_code_app = 6;         //app赛事二维码。0关闭,1开启,-1表示不修改
+}
+
+
+//平台相关的比赛开关
+message PrPsGamePlatformSwitch {
+	enum Result
+    {
+        OK = 0;                                         // 成功
+        FAILED = 1;                                     // 失败
+    }
+	GamePlatformSwitchReq req = 1;
+	Result result = 2;                                  // 结果
+}
+message GamePlatformSwitchReq {
+	int32 platform_id = 1;            //平台id,1安卓 2IOS
+	int32 paid_match_switch = 2;      //付费赛开关,0下线,1上线,-1表示不修改
+	int32 personal_match_switch = 3;  //联机比赛开关,0下线,1上线,-1表示不修改
+	int32 app_play_switch = 4;        //app游戏开关,0app内不能玩,1app内可以玩,-1表示不修改
+}
+
+message GamePlatformSwitchReq123 {
+	int32 platform_id = 1;            //平台id,1安卓 2IOS
+	int32 paid_match_switch = 2;      //付费赛开关,0下线,1上线,-1表示不修改
+	int32 personal_match_switch = 3;  //联机比赛开关,0下线,1上线,-1表示不修改
+	int32 app_play_switch = 4;        //app游戏开关,0app内不能玩,1app内可以玩,-1表示不修改
+}
+
+
+//获取平台比赛开关
+message PrPsSelectGamePlatformSwitch {
+	enum Result
+    {
+        OK = 0;                                         // 成功
+        FAILED = 1;                                     // 失败
+    }
+	GamePlatformSwitchRsp rsp = 1;
+	Result result = 2;                                  // 结果
+}
+message GamePlatformSwitchRsp {
+	int32 platform_id = 1;           //平台id,1安卓 2IOS
+	int32 paid_match_switch = 2;     //付费赛开关，0下线,1上线
+	int32 personal_match_switch = 3; //联机比赛开关，0下线,1上线
+	int32 app_play_switch = 4;        //app游戏开关,0app内不能玩,1app内可以玩
+}
