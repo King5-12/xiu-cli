@@ -14,16 +14,15 @@ if (args.v || args.version) {
     process.exit(0);
 }
 
-const name = args._[0] || '';
+const [arg1, arg2] = args._;
 const { type } = args;
 
-switch (name) {
+switch (arg1) {
     case 'proto':
         (async () => {
             await protoRun({
-                name,
                 type,
-                args,
+                path: arg2,
             });
             process.exit(0);
         })();
@@ -31,7 +30,6 @@ switch (name) {
     default:
         (async () => {
             await run({
-                name,
                 type,
                 args,
             });
